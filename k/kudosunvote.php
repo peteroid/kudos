@@ -25,8 +25,6 @@ if (mysql_fetch_array($checkexist) !== false){
         } elseif ($fbrow["kudos3"] == $id){
             $fbupdate3 = mysql_query("UPDATE fbuser SET kudos3='0' WHERE fbid='$fbid'");
             $updatekudosplus = mysql_query("UPDATE users SET kudos='$kudosplus' WHERE user_id='$id'");
-        } else {
-            $updatekudosplus = mysql_query("UPDATE users SET kudos='$kudosplus' WHERE user_id='$id'");
         }
     }
 } else {

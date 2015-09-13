@@ -18,8 +18,9 @@ function kudos() {
         }
     });
     
-    $('.kudosheart').click(function(e){
+    var kudosheartOnClickHandler = function(e){
         e.preventDefault;
+        $(this).off('click'); // detach the handler to prevent more clicks before the result
         var id = $(this).parent().attr('data-id');
         var kudosDataString = 'id=' + id + '&fbid=' +fbid;
         var kudosSpan = $("span[data-id='"+id+"']");
@@ -40,6 +41,9 @@ function kudos() {
                 },
                 error: function(data) {
                     console.log('Ajax unkudos failed: ' + data);
+                },
+                complete: function(){
+                    $(this).click(kudosheartOnClickHandler); // attach the handler back to the element
                 }
             });
         } else {
@@ -60,6 +64,9 @@ function kudos() {
                     },
                     error: function(data) {
                         console.log('Ajax kudos failed: ' + data);
+                    },
+                    complete: function(){
+                        $(this).click(kudosheartOnClickHandler); // attach the handler back to the element
                     }
                 });
             } else {
@@ -67,5 +74,7 @@ function kudos() {
                 $(this).blur();
             }
         }  
-    });
+    }
+
+    $('.kudosheart').click(kudosheartOnClickHandler);
 };
